@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using MotoApp3.Entities;
 
-
 public class MotoAppDbContext : DbContext
 {
     public DbSet<Employee> Employees => Set<Employee>();
@@ -14,7 +13,5 @@ public class MotoAppDbContext : DbContext
         base.OnConfiguring(opcjeBudowania);
         opcjeBudowania.UseInMemoryDatabase("StorageMotoApp3");
     }
-
-
 }
 

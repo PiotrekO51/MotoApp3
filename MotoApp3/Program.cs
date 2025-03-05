@@ -60,7 +60,7 @@ string GetName(string txt)
 }
 
 
- void AddEmployee(IRepository<Manager> sqlRepository2)
+void AddEmployee(IRepository<Manager> sqlRepository2)
 {
     var employess = new[]
     {
@@ -71,7 +71,7 @@ string GetName(string txt)
         new Manager { FirstName = "Piotr", },
         new Manager { FirstName = "Marek", },
     };
-    AddBatch(sqlRepository2,employess);
+    AddBatch(sqlRepository2, employess);
     foreach (var emp in sqlRepository2.GetAll())
     {
         Console.WriteLine(emp.ToString());
@@ -86,8 +86,6 @@ static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, I
     repository.Save();
 }
 
-
-
-    Console.ReadLine();
+Console.ReadLine();
 
 
