@@ -4,25 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using MotoApp3.Data;
 using Microsoft.EntityFrameworkCore;
 
-//var employeRepository = new GenericRepository<Employee>();
-
-
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
 string name2 = null;
 
-GetName("Podaj imię lub wciśnij X w celu wyjścia");
-
-while (name2 != "X")
-{
-    sqlRepository.Add(new Employee
-    {
-        FirstName = name2
-    });
-        sqlRepository.Save();
-        Console.Clear();
-        GetName("Podaj ponownie imię lub wciśnij X w celu wyjścia");
-}
-
+AddEmplyess();
 Console.Clear();
 GetEmployeeById(sqlRepository);
 Console.WriteLine("\n" +
@@ -35,6 +20,21 @@ static void GetEmployeeById(IReadRepository<IEntity> sqlRepository)
     {
         var emp = sqlRepository.GetById(j);
         Console.WriteLine(emp.ToString());
+    }
+}
+void AddEmplyess()
+{
+    GetName("Podaj imię lub wciśnij X w celu wyjścia");
+
+    while (name2 != "X")
+    {
+        sqlRepository.Add(new Employee
+        {
+            FirstName = name2
+        });
+        sqlRepository.Save();
+        Console.Clear();
+        GetName("Podaj ponownie imię lub wciśnij X w celu wyjścia");
     }
 }
 
