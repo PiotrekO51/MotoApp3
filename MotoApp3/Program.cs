@@ -1,18 +1,17 @@
 ﻿using MotoApp3.Repositories;
 using MotoApp3.Entities;
-using System.ComponentModel.DataAnnotations;
 using MotoApp3.Data;
 using Microsoft.EntityFrameworkCore;
 
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
-var sqlRepository2 = new SqlRepository<Manager>(new MotoAppDbContext());
+//var sqlRepository2 = new SqlRepository<Employee>(new MotoAppDbContext());
 string name2 = null;
 
 AddEmplyess();
 Console.Clear();
 GetEmployeeById(sqlRepository);
 Console.ReadLine();
-AddEmployee(sqlRepository2);
+AddEmployee(sqlRepository);
 Console.WriteLine("\n" +
     "Koniec programu");
 
@@ -60,23 +59,24 @@ string GetName(string txt)
 }
 
 
-void AddEmployee(IRepository<Manager> sqlRepository2)
+void AddEmployee(IRepository<Employee> sqlRepository)
 {
     var employess = new[]
     {
-        new Manager { FirstName = "Jan", },
-        new Manager { FirstName = "Krzysztof", },
-        new Manager { FirstName = "Anna", },
-        new Manager { FirstName = "Katarzyna", },
-        new Manager { FirstName = "Piotr", },
-        new Manager { FirstName = "Marek", },
+        new Employee { FirstName = "Jan", },
+        new Employee { FirstName = "Krzysztof", },
+        new Employee { FirstName = "Anna", },
+        new Employee { FirstName = "Katarzyna", },
+        new Employee { FirstName = "Piotr", },
+        new Employee { FirstName = "Marek", },
     };
-    AddBatch(sqlRepository2, employess);
-    foreach (var emp in sqlRepository2.GetAll())
+    AddBatch(sqlRepository, employess);
+    foreach (var emp in sqlRepository.GetAll())
     {
         Console.WriteLine(emp.ToString());
     }
 }
+
 static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity, new()
 {
     foreach (var emp in items)
