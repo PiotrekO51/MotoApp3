@@ -1,9 +1,11 @@
-﻿using MotoApp3.Repositories;
+﻿using MotoApp3.Repositories.Extensions;
+using MotoApp3.Repositories;
 using MotoApp3.Entities;
 using MotoApp3.Data;
 using Microsoft.EntityFrameworkCore;
 
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
+var businesPartnerRepository = new SqlRepository<BusinesPartner>(new MotoAppDbContext());
 //var sqlRepository2 = new SqlRepository<Employee>(new MotoAppDbContext());
 string name2 = null;
 
@@ -11,7 +13,7 @@ AddEmplyess();
 Console.Clear();
 GetEmployeeById(sqlRepository);
 Console.ReadLine();
-AddEmployee(sqlRepository);
+AddEmployee(businesPartnerRepository);
 Console.WriteLine("\n" +
     "Koniec programu");
 
@@ -56,35 +58,31 @@ string GetName(string txt)
     }
     name2 = char.ToUpper(name[0]) + name.Substring(1);
     return name2;
+   
 }
 
-
-void AddEmployee(IRepository<Employee> sqlRepository)
+void AddEmployee(IRepository<BusinesPartner> businesPartnerRepository)
 {
-    var employess = new[]
+    var businesPartners = new[]
     {
-        new Employee { FirstName = "Jan", },
-        new Employee { FirstName = "Krzysztof", },
-        new Employee { FirstName = "Anna", },
-        new Employee { FirstName = "Katarzyna", },
-        new Employee { FirstName = "Piotr", },
-        new Employee { FirstName = "Marek", },
+        new BusinesPartner { FirstName = "Jan", },
+        new BusinesPartner { FirstName = "Krzysztof", },
+        new BusinesPartner { FirstName = "Anna", },
+        new BusinesPartner { FirstName = "Katarzyna", },
+        new BusinesPartner { FirstName = "Piotr", },
+        new BusinesPartner { FirstName = "Marek", },
     };
-    AddBatch(sqlRepository, employess);
-    foreach (var emp in sqlRepository.GetAll())
+
+    businesPartnerRepository.AddBatch(businesPartners);
+
+
+    foreach (var partner in businesPartnerRepository.GetAll())
     {
-        Console.WriteLine(emp.ToString());
+        Console.WriteLine(partner.ToString());
     }
 }
 
-static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity, new()
-{
-    foreach (var emp in items)
-    {
-        repository.Add(emp);
-    }
-    repository.Save();
-}
+
 
 Console.ReadLine();
 
