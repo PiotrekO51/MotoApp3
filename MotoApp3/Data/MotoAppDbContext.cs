@@ -7,6 +7,7 @@ public class MotoAppDbContext : DbContext
 {
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<BusinesPartner> BusinesPartners => Set<BusinesPartner>();
+    public DbSet<Manager> Managers => Set<Manager>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder opcjeBudowania)//optionsBuilder
     {

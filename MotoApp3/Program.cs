@@ -5,11 +5,14 @@ using MotoApp3.Data;
 using Microsoft.EntityFrameworkCore;
 
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
+var sqlRepository2 = new SqlRepository<Manager>(new MotoAppDbContext());
 string name2 = null;
 
 AddEmplyess();
 Console.Clear();
 GetEmployeeById(sqlRepository);
+Console.ReadLine();
+AddEmployee(sqlRepository2);
 Console.WriteLine("\n" +
     "Koniec programu");
 
@@ -57,6 +60,34 @@ string GetName(string txt)
 }
 
 
-Console.ReadLine();
+ void AddEmployee(IRepository<Manager> sqlRepository2)
+{
+    var employess = new[]
+    {
+        new Manager { FirstName = "Jan", },
+        new Manager { FirstName = "Krzysztof", },
+        new Manager { FirstName = "Anna", },
+        new Manager { FirstName = "Katarzyna", },
+        new Manager { FirstName = "Piotr", },
+        new Manager { FirstName = "Marek", },
+    };
+    AddBatch(sqlRepository2,employess);
+    foreach (var emp in sqlRepository2.GetAll())
+    {
+        Console.WriteLine(emp.ToString());
+    }
+}
+static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity, new()
+{
+    foreach (var emp in items)
+    {
+        repository.Add(emp);
+    }
+    repository.Save();
+}
+
+
+
+    Console.ReadLine();
 
 
