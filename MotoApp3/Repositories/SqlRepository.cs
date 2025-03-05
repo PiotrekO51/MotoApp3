@@ -20,7 +20,7 @@ public class SqlRepository<T> :IRepository<T> where T : class, IEntity, new()
     public int GetNumberId(string txt)
     {
         int i = _dbSet.Count();
-        Console.WriteLine($"długość {txt} = {i}");
+        Console.WriteLine($"Długość {txt} = {i}\n");
         return i;
 
     }

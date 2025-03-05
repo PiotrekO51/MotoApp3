@@ -8,48 +8,51 @@ using Microsoft.EntityFrameworkCore;
 
 
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
+string name2 = null;
 
-Console.WriteLine("Podaj imię");
-string name = Console.ReadLine();
-string name2 = char.ToUpper(name[0]) + name.Substring(1);
+GetName("Podaj imię lub wciśnij Q w celu wyjścia");
 
 while (name2 != "Q")
-{
-    sqlRepository.Add(new Employee { FirstName = name2 });
-    sqlRepository.Save();
-    Console.Clear();
-    Console.WriteLine("Podaj imię");
-    name = Console.ReadLine();
-    name2 = char.ToUpper(name[0]) + name.Substring(1);
+{ 
+        sqlRepository.Add(new Employee { FirstName = name2 });
+        sqlRepository.Save();
+        Console.Clear();
+        GetName("Podaj ponownie imię lub wciśnij Q w celu wyjścia");
 }
 
 Console.Clear();
-int i = sqlRepository.GetNumberId("listy bucu");
-for (int j = 1; j <= i; j++)
-{
-    var emp = sqlRepository.GetById(j);
-    Console.WriteLine(emp.ToString());
-}
-Console.WriteLine();
-foreach (var e in sqlRepository.GetAll())
-{
-    Console.WriteLine(e.ToString());
-
-}
-
-Console.WriteLine();
-
 GetEmployeeById(sqlRepository);
+Console.WriteLine("\n" +
+    "Koniec programu");
 
 static void GetEmployeeById(IReadRepository<IEntity> sqlRepository)
 {
-    int i = sqlRepository.GetNumberId("listy GetEmployee");
+    int i = sqlRepository.GetNumberId("listy Employee");
     for (int j = 1; j <= i; j++)
     {
         var emp = sqlRepository.GetById(j);
         Console.WriteLine(emp.ToString());
     }
 }
+
+string GetName(string txt)
+{
+    Console.WriteLine(txt);
+    string name = Console.ReadLine();
+
+    while (name == null || name == " " || name == "")
+    {
+
+        Console.WriteLine("Brak wpisu lub znak pusty");
+        Thread.Sleep(1000);
+        Console.Clear();
+        Console.WriteLine(txt);
+        name = Console.ReadLine();
+    }
+    name2 = char.ToUpper(name[0]) + name.Substring(1);
+    return name2;
+}
+
 
 Console.ReadLine();
 
