@@ -10,14 +10,17 @@ using Microsoft.EntityFrameworkCore;
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
 string name2 = null;
 
-GetName("Podaj imię lub wciśnij Q w celu wyjścia");
+GetName("Podaj imię lub wciśnij X w celu wyjścia");
 
-while (name2 != "Q")
-{ 
-        sqlRepository.Add(new Employee { FirstName = name2 });
+while (name2 != "X")
+{
+    sqlRepository.Add(new Employee
+    {
+        FirstName = name2
+    });
         sqlRepository.Save();
         Console.Clear();
-        GetName("Podaj ponownie imię lub wciśnij Q w celu wyjścia");
+        GetName("Podaj ponownie imię lub wciśnij X w celu wyjścia");
 }
 
 Console.Clear();
