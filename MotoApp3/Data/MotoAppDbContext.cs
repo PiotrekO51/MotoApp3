@@ -6,7 +6,7 @@ using MotoApp3.Entities;
 public class MotoAppDbContext : DbContext
 {
     public DbSet<Employee> Employees => Set<Employee>();
-    public DbSet<BusinesPartner> businesPartners => Set<BusinesPartner>();
+    public DbSet<BusinesPartner> BusinesPartners => Set<BusinesPartner>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder opcjeBudowania)//optionsBuilder
     {
