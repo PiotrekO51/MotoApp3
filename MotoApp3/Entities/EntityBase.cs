@@ -2,5 +2,5 @@
 
 public abstract class EntityBase : IEntity
 {
-    public int Id { get; set; }
+    public int ? Id { get; set; }
 }
