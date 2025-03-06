@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext());
 var businesPartnerRepository = new SqlRepository<BusinesPartner>(new MotoAppDbContext());
-//var sqlRepository2 = new SqlRepository<Employee>(new MotoAppDbContext());
 string name2 = null;
 
 AddEmplyess();
@@ -75,6 +74,9 @@ void AddEmployee(IRepository<BusinesPartner> businesPartnerRepository)
 
     businesPartnerRepository.AddBatch(businesPartners);
 
+    Console.WriteLine("Lista partnerów biznesowych:\n" +
+        "");
+    int i = businesPartnerRepository.GetNumberId("listy Partnerów Biznesowych");
 
     foreach (var partner in businesPartnerRepository.GetAll())
     {
