@@ -5,8 +5,8 @@ using MotoApp3.Entities;
 using MotoApp3.Data;
 using Microsoft.EntityFrameworkCore;
 
-var itemAdded = new ItemAdded(EmployeeAdded);
-var itemAdded2 = new ItemAdded(EmployeeAdded2);
+var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
+var itemAdded2 = new ItemAdded<BusinesPartner>(EmployeeAdded2);
 var sqlRepository = new SqlRepository<Employee>(new MotoAppDbContext(), itemAdded);
 var businesPartnerRepository = new SqlRepository<BusinesPartner>(new MotoAppDbContext(), itemAdded2);
 string name2 = null;
