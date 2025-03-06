@@ -109,9 +109,6 @@ void AddEmployee(IRepository<BusinesPartner> businesPartnerRepository)
         Console.WriteLine(partner.ToString());
     }
 }
-
-
-
 Console.ReadLine();
 
 
