@@ -8,10 +8,10 @@ public class MotoAppDbContext : DbContext
     public DbSet<BusinesPartner> BusinesPartners => Set<BusinesPartner>();
     public DbSet<Manager> Managers => Set<Manager>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder opcjeBudowania)//optionsBuilder
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        base.OnConfiguring(opcjeBudowania);
-        opcjeBudowania.UseInMemoryDatabase("StorageMotoApp3");
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseInMemoryDatabase("StorageMotoApp3");
     }
 }
 
