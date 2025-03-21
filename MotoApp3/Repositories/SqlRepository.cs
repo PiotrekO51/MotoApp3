@@ -2,21 +2,26 @@
 using Microsoft.EntityFrameworkCore;
 using MotoApp3.Entities;
 
-public delegate void ItemAdded<in T>(T item);
+//public delegate void ItemAdded<in T>(T item);
 public class SqlRepository<T> :IRepository<T> where T : class, IEntity, new()
 { 
 
-    private readonly DbSet<T> _dbSet;
+  
     private readonly DbContext _dbContext;
-    private event ItemAdded <T>_itemAddedCallback;
+    private readonly DbSet<T> _dbSet;
+    private event Action <T>_itemAddedCallback;
+    public event EventHandler<T>? ItemAded;
+    public event EventHandler<T>? ItemDeleted;
 
-    public SqlRepository(DbContext dbContext, ItemAdded<T>? itemAddedCallback = null)
+    public SqlRepository(DbContext dbContext, Action<T>? itemAddedCallback = null)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
         _itemAddedCallback = itemAddedCallback;
     }
-    
+
+   
+
     public IEnumerable<T>GetAll()
     {
         return _dbSet.ToList(); 
@@ -36,6 +41,7 @@ public class SqlRepository<T> :IRepository<T> where T : class, IEntity, new()
     {
         _dbSet.Add(item);
         _itemAddedCallback?.Invoke(item);
+        ItemAded?.Invoke(this, item);  
     }
     public void Remove(T item)
     {
@@ -44,6 +50,11 @@ public class SqlRepository<T> :IRepository<T> where T : class, IEntity, new()
     public void Save()
     {
         _dbContext.SaveChanges();
+    }
+
+    public void InsertItem(int index, T item)
+    {
+        throw new NotImplementedException();
     }
 }
 
